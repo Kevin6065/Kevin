@@ -1,0 +1,13 @@
+package com;
+
+import lombok.AllArgsContructor;
+
+@Data
+
+public class User {
+
+	private Long id;
+	
+	private String name;
+	
+}

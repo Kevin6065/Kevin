@@ -1,0 +1,23 @@
+package com.model;
+
+public class Toyota /** extends ToyotaEngine */ {
+
+	// private ToyotaEngine engine;
+	private Engine engine;
+	
+	public Toyota()//j6h0 gj4
+	
+	{
+		
+	}
+	public Toyota(Engine engine) {
+		this.engine = engine;
+	}
+	
+	public void move() {
+		// ToyotaEngine engine = new ToyotaEngine();
+		// engine.start();
+		engine.start();
+		System.out.println("Toyota 移動");
+	}
+}
