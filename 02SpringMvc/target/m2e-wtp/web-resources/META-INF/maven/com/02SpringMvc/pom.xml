@@ -53,6 +53,11 @@
     <artifactId>mysql-connector-java</artifactId>
     <version>8.0.33</version>
 </dependency>
+  	<dependency>
+  		<groupId>com.course</groupId>
+  		<artifactId>02-springmvc</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 
   <build>
