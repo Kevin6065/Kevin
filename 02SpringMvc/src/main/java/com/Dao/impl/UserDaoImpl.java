@@ -91,4 +91,32 @@ public class UserDaoImpl implements UserDao{
 		
 	}
 
+	@Override
+	public List<UserEntity> findAll() {
+		try (Session session = connectionService.getSession();) {
+//		    String sql = "select u from UserEntity u";
+//		    Query<UserEntity> query = session.createQuery(sql, UserEntity.class);
+		    
+		    String sql = "select * from user";
+		    Query<UserEntity> query = session.createNativeQuery(sql, UserEntity.class);
+		    List<UserEntity> userList = query.getResultList();
+			return userList;
+		}
+		
+	}
+
+	@Override
+	public UserEntity findById(Long id) {
+		try (Session session = connectionService.getSession();) {
+		    String sql = "select * from user u where u.id = :id2 ";//id2名稱可改,where u.id的id無法修改
+		    Query<UserEntity> query = session.createNativeQuery(sql, UserEntity.class);
+		    query.setParameter("id2", id);
+		    List<UserEntity> userList = query.getResultList();
+			return userList.get(0);
+		}
+		
+		
+		
+	}
+
 }

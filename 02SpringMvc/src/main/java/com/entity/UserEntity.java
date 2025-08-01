@@ -27,6 +27,17 @@ public class UserEntity {
 	@Column(name = "birth_day")//SQL的名稱與這裡不同時才需要加Column
 	private Date birthDay;
 
+	public UserEntity() {
+	}
+
+	
+	public UserEntity(String username, String password, String email, Date birthDay) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.birthDay = birthDay;
+	}
 	
     
 	public Integer getId() {
