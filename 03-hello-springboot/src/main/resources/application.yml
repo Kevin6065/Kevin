@@ -1,0 +1,12 @@
+#spring.application.name=03-hello-springboot
+#server.port=9090
+spring:
+  application:
+    name: 03-hello-springboot
+server:
+  port: 9090
+logging:
+  level: 
+    com.course: trace
+  file:
+    path: C:\Users\student\log
