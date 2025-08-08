@@ -5,25 +5,28 @@ import java.util.List;
 import com.course.model.TodoDto;
 
 public interface TodoDao {
-	
-	
 	/**
 	 * 新增
 	 * @param dto
 	 */
 	void add(TodoDto dto);
+	
 	/**
 	 * 修改
 	 * @param dto
 	 */
 	void update(TodoDto dto);
+	
+	/**
+	 * 刪除
+	 * @param id
+	 */
+	void delete(Long id);
+	
 	/**
 	 * 查詢全部
 	 * @return
 	 */
-	
-	void delete(Long id);
-	
 	List<TodoDto> findAll();
 	
 	/**
@@ -32,5 +35,4 @@ public interface TodoDao {
 	 * @return
 	 */
 	List<TodoDto> findByTitle(String title);
-	
 }
