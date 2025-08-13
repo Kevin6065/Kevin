@@ -23,13 +23,13 @@ public class TodoDaoImpl implements TodoDao {
 	@Override
 	public void add(TodoDto dto) {
 
-		String sql = "INSERT INTO TODO (TITLE, DUE_DATE, STATUS,USERID,MEMO) VALUES (?, ?, ?,?,?) ";
-		jdbcTemplate.update(sql, dto.getTitle(), dto.getDueDate(), dto.getStatus(), dto.getUserId(),dto.getMemo());
+		String sql = "INSERT INTO TODO (TITLE, DUE_DATE, STATUS, USERID, MEMO) VALUES (?, ?, ?, ?, ?) ";
+		jdbcTemplate.update(sql, dto.getTitle(), dto.getDueDate(), dto.getStatus(), dto.getUserId(), dto.getMemo());
 	}
 
 	@Override
 	public void update(TodoDto dto) {
-		String sql = "UPDATE TODO SET TITLE = ?, DUE_DATE = ?, STATUS = ? WHERE ID =　? ";
+		String sql = "UPDATE TODO SET TITLE = ?, DUE_DATE = ?, STATUS = ? WHERE ID = ? ";
 		jdbcTemplate.update(sql, dto.getTitle(), dto.getDueDate(), dto.getStatus(), dto.getId());
 		
 	}
@@ -43,7 +43,7 @@ public class TodoDaoImpl implements TodoDao {
 
 	@Override
 	public List<TodoDto> findAll() {
-		//String sql = "SELECT * FROM TODO";
+		// String sql = "SELECT * FROM TODO";
 		StringBuilder sb = new StringBuilder();
 		sb.append(" SELECT ");
 		sb.append(" T.ID, ");
@@ -54,8 +54,6 @@ public class TodoDaoImpl implements TodoDao {
 		sb.append(" U.USERNAME ");
 		sb.append(" FROM TODO T ");
 		sb.append(" LEFT JOIN USER U ON T.USERID = U.ID ");
-		
-		
 		
 		RowMapper<TodoDto> rowMapper = new RowMapper<>() {
 			@Override
@@ -70,7 +68,6 @@ public class TodoDaoImpl implements TodoDao {
 				return dto;
 			}
 		};
-		//return jdbcTemplate.query(sql, rowMapper);
 		return jdbcTemplate.query(sb.toString(), rowMapper);
 	}
 
@@ -132,6 +129,5 @@ public class TodoDaoImpl implements TodoDao {
 		}
 		
 		return result;
-	
 	}
 }
