@@ -13,13 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.course.dao.TodoDao;
+import com.course.model.SearchCondition;
 import com.course.model.TodoDto;
 import com.course.model.TodoVo;
 
 @Service
 public class TodoService {
 	
-	private static final String UPLOAD_DIR = "/Users/student/static";
+	private static final String UPLOAD_DIR = "/Workspace/Pictures";
+	
 	
 	@Autowired
 	private TodoDao todoDao;
@@ -29,35 +31,34 @@ public class TodoService {
 	
 	public List<TodoVo> findAllTodo() {
 		List<TodoDto> dtoList = todoDao.findAll();
+		
+		
 		List<TodoVo> voList  = dtoList.stream().map(d -> helper.convertToVo(d)).collect(Collectors.toList());
 
 		return voList;
 	}
+	
 	
 	public void addTodo(TodoVo todoVo) {
 		// Vo -> Dto
 		todoVo.setStatus("0");
 		TodoDto dto = helper.convertToDto(todoVo);
 		todoDao.add(dto);
-		
 		try {
 			saveImage(todoVo.getFile());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	public void deleteTodo(Long id) {
 		todoDao.delete(id);
 	}
 	
-	/**
-	 * 透過 ID 搜尋
-	 * @param id
-	 * @return
-	 */
+	
 	public TodoVo getTodoById(Long id) {
-		TodoDto dto = todoDao.findById(id);
+		TodoDto dto= todoDao.findById(id);
 		return helper.convertToVo(dto);
 	}
 
@@ -83,4 +84,16 @@ public class TodoService {
 		// 如果檔案已經存在，直接覆蓋舊檔
 		Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 	}
+
+	/**
+	 * 依條件搜尋
+	 * @param condition
+	 * @return
+	 */
+	public List<TodoVo> searchByCondition(SearchCondition condition) {
+		List<TodoDto> dtoList = todoDao.findByCondition(condition);
+		return dtoList.stream().map(dto -> helper.convertToVo(dto)).collect(Collectors.toList());
+	}
+	
+	
 }

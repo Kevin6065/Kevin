@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class TodoDto {
 
+	
+	
 	/** 鍵值 */
 	private Long id;
 	
@@ -16,7 +18,7 @@ public class TodoDto {
 	/** 到期日 */
 	private Date dueDate;
 	
-	/** 狀態 */
+	/** 狀態*/
 	private Integer status;
 	
 	/** 備註 */
@@ -55,7 +57,7 @@ public class TodoDto {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
+	
 	public Long getUserId() {
 		return userId;
 	}
@@ -79,7 +81,6 @@ public class TodoDto {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	@Override
 	public String toString() {
 		return "TodoDto [id=" + id + ", title=" + title + ", dueDate=" + dueDate + ", status=" + status + "]";

@@ -2,6 +2,7 @@ package com.course.dao;
 
 import java.util.List;
 
+import com.course.model.SearchCondition;
 import com.course.model.TodoDto;
 
 public interface TodoDao {
@@ -35,11 +36,19 @@ public interface TodoDao {
 	 * @return
 	 */
 	List<TodoDto> findByTitle(String title);
-	
 	/**
 	 * 依ID查詢
 	 * @param title
 	 * @return
 	 */
 	TodoDto findById(Long id);
+	
+
+	/**
+	 * 依條件搜尋
+	 * @param condition
+	 * @return
+	 */
+	List<TodoDto> findByCondition(SearchCondition condition);
+	
 }

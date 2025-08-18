@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class TodoVo {
-
 	/** 鍵值 */
 	private Long id;
 	
@@ -30,6 +29,7 @@ public class TodoVo {
 	
 	/** 使用者名稱 */
 	private String username;
+	
 	
 	/** 檔案 */
 	private MultipartFile file;
@@ -89,7 +89,8 @@ public class TodoVo {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	
+	
 	public MultipartFile getFile() {
 		return file;
 	}
@@ -97,7 +98,6 @@ public class TodoVo {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-
 	@Override
 	public String toString() {
 		return "TodoVo [title=" + title + ", dueDate=" + dueDate + ", status=" + status + ", statusDisp=" + statusDisp

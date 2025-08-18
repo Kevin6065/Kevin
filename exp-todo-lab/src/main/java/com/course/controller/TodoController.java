@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.course.model.SearchCondition;
 import com.course.model.TodoVo;
 import com.course.service.TodoService;
-
 import jakarta.validation.Valid;
 
 @Controller
@@ -29,27 +29,30 @@ public class TodoController {
         return "index";
     }
     
-    @ModelAttribute("title")
-    public String title() {
-    	return "待辦事項222";
-//    	return "<script>alert('!!!!!!')</script>";
-    }
-    
-    @GetMapping("/toAddPage")
-    public String toAddPage(@ModelAttribute("todoObj") TodoVo todo) {
-    	return "addTodoPage";
+     @ModelAttribute("title")
+        public String title() {
+        	return "代辦事項";
+        }
+    @GetMapping("/toAddPage")    
+    public String toAddPage( @ModelAttribute("todoObj")TodoVo todo ) {
+    	return"addTodoPage";
     }
     
     @PostMapping("/todo")
+    //public String addTodo(@ModelAttribute("todoObj")TodoVo todo ) {
+    
+    //todoService.addTodo(todo);
     public String addTodo(@Valid @ModelAttribute("todoObj") TodoVo todo, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			// 有欄位檢核錯誤，回到新增頁面
-			return "addTodoPage";
-		}
-
-		todoService.addTodo(todo);
-		// 新增完畢後，轉導至首頁，避免refresh重送新增
-		return "redirect:/";
+    	if (bindingResult.hasErrors()) {
+    		
+    		// 有欄位檢核錯誤，回到新增頁面
+    					return "addTodoPage";
+        	
+        }
+    	
+    	todoService.addTodo(todo);
+    	// 新增完畢後，轉導至首頁，避免refresh重送新增
+    		return"redirect:/";    
     }
     
     @GetMapping("/delete/{id}")
@@ -58,19 +61,32 @@ public class TodoController {
     	return "redirect:/";
     }
     
+    
+    
     @GetMapping("/toUpdatePage/{id}")
     public String toUpdatePage(@PathVariable Long id, Model model) {
     	TodoVo vo = todoService.getTodoById(id);
     	model.addAttribute("todoObj", vo);
     	return "editTodoPage";
     }
-    
     @PostMapping("/editTodo")
     public String editTodo(@ModelAttribute("todoObj") TodoVo todo) {
     	
     	todoService.editTodo(todo);
     	return "redirect:/";
     }
+    @ModelAttribute("condition")
+	public SearchCondition getCondition() {
+		return new SearchCondition();
+	}
+	
+	@GetMapping("/search")
+	public String search(@ModelAttribute SearchCondition condition, Model model) {
+		List<TodoVo> todoList = todoService.searchByCondition(condition);
+		model.addAttribute("todoList", todoList);
+		return "index";
+	}
+    
     
     
 }

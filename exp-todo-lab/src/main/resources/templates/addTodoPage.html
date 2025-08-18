@@ -7,7 +7,7 @@
 <body>
 <h1>新增代辦事項</h1>
 
-<form th:action="@{/todo}" th:object="${todoObj}" method="POST" enctype="multipart/form-data">
+<form th:action="@{/todo}" th:object="${todoObj}" method="POST" enctype="multipart/form-data"> 
     <div>
         <label for="title">標題:</label>
         <input type="text" id="title" th:field="*{title}" />
@@ -15,13 +15,13 @@
     </div>
     <div>
         <label for="dueDate">到期日:</label>
-        <input type="date" id="dueDate" th:field="*{dueDate}"/>
-        <span class="error" th:if="${#fields.hasErrors('dueDate')}" th:errors="*{dueDate}"></span>
+         <input type="date" id="dueDate" th:field="*{dueDate}"/>
+        <span class="error" th:if="${#fields.hasErrors('dueDate')}" th:errors="*{dueDate}"s></span>
     </div>
     
     <div>
         <label for="memo">備註:</label>
-        <input type="text" id="memo" th:field="*{memo}"/>
+        <input type="text" id="memo" th:field="*{memo}" />
     </div>
     
     <div>
@@ -29,12 +29,16 @@
         <input type="file" id="file" th:field="*{file}" />
     </div>
     
+    
     <div>
         <button type="submit">新增待辦事項</button>
     </div>
 </form>
-<div th:replace="~{common :: footer2}">
-© 2025 待辦事項. All Rights Reserved.
-</div>
+	
+	<div th:replace="~{common :: footer2}">
+		© 2025 待辦事項. All Rights Reserved.
+	</div>
+
+
 </body>
 </html>

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -14,15 +16,18 @@ public class TodoEntity {
 
 	/** 鍵值 */
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	/** 使用者鍵值 */
-	@Column(name = "userId")
-	@Transient
+	//@Column(name = "userId")
+	//@Transient
 	private Long userId;
 	
 	/** 標題 */
 	private String title;
+	
+	
 	
 	/** 到期日 */
 	private Date dueDate;
