@@ -7,7 +7,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -123,6 +128,58 @@ public class TodoService {
 	 * @return
 	 */
 	public List<TodoEntity> getTodoOrderByTitle(String title) {
-		return todoRepository.findByTitleOrderByDueDateDesc(title);
+		return todoRepository.findByTitleContainingOrderByDueDateDesc(title);
+		// return todoRepository.findByTitleOrderByDueDateDesc(title);
 	}
+	
+	/**
+	 * 取得待辦事項(Query)
+	 * @return
+	 */
+	public List<TodoEntity> getTodoByTitleQuery(String title) {
+		//return todoRepository.findByCondition("%" + title + "%");
+		// return todoRepository.findByTitleOrderByDueDateDesc(title);
+		
+		return todoRepository.findByConditionNative("%" + title + "%");
+	}
+	
+	public List<TodoEntity> findByStatusAndTitle(Integer status, String title) {
+		return todoRepository.findByStatusAndTitle(status, title);
+	}
+	
+	public void updateTodoTitle(Long id, String title) {
+		todoRepository.updateTodoTitle(title, id);
+	}
+	
+	/**
+	 * 取得所有待辦事項(排序)
+	 * @return
+	 */
+	public List<TodoEntity> getAllTodoSort() {
+		// Sort sort = Sort.by("dueDate", "title");
+		Sort sort = Sort.by("status");
+		return todoRepository.findAll(sort);
+	}
+	
+	/**
+	 * 取得所有待辦事項(分頁)
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 */
+	public Page<TodoEntity> getAllTodoPageable(Integer pageNumber, Integer pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		return todoRepository.findAll(pageable);
+	}
+	
+	/**
+	 * 取得所有待辦事項(分頁)
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 */
+	public Page<TodoEntity> getAllTodoPageable2(Pageable pageable) {
+		return todoRepository.findAll(pageable);
+	}
+	
 }
