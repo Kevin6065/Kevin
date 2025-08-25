@@ -2,8 +2,24 @@ package com.course.dto;
 
 import java.math.BigDecimal;
 
+//@SqlResultSetMapping(
+//	    name = "ProductDtoMapping",
+//	    classes = @ConstructorResult(
+//	        targetClass = ProductDto.class,
+//	        columns = {
+//        		@ColumnResult(name = "ID", type = Long.class),
+//        		@ColumnResult(name = "CODE", type = String.class),
+//	            @ColumnResult(name = "NAME", type = String.class),
+//	            @ColumnResult(name = "LIST_PRICE", type = BigDecimal.class),
+//	            @ColumnResult(name = "SALES_PRICE", type = BigDecimal.class),
+//	            @ColumnResult(name = "MEMO", type = String.class)
+//	        }
+//	    )
+//	)
+//@Entity
 public class ProductDto {
 
+//	@Id
 	private Long id;
 	
 	private String code;
@@ -20,6 +36,33 @@ public class ProductDto {
 
 	public ProductDto() {
 
+	}
+
+	public ProductDto(Long id, String code, String name, BigDecimal listPrice, BigDecimal salesPrice, String memo) {
+		super();
+		this.id = id;
+		this.code = code;
+		this.name = name;
+		this.listPrice = listPrice;
+		this.salesPrice = salesPrice;
+		this.memo = memo;
+	}
+	
+	public ProductDto(String code, String name, BigDecimal listPrice, BigDecimal salesPrice) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.listPrice = listPrice;
+		this.salesPrice = salesPrice;
+	}
+	
+	public ProductDto(String code, String name, BigDecimal listPrice, BigDecimal salesPrice, String memo) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.listPrice = listPrice;
+		this.salesPrice = salesPrice;
+		this.memo = memo;
 	}
 
 	public Long getId() {

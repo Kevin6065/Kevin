@@ -1,5 +1,6 @@
 package com.course.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import com.course.entity.CategoryEntity;
 import com.course.entity.ProductEntity;
 import com.course.entity.ProductPriceEntity;
 import com.course.entity.ProductReviewEntity;
+import com.course.repository.ProductCustomRepository;
 import com.course.repository.ProductPriceRepository;
 import com.course.repository.ProductRepository;
 import com.course.vo.ProductQueryParam;
@@ -25,6 +27,9 @@ public class ProductService {
 	
 	@Autowired
 	private ProductPriceRepository productPriceRepository;
+	
+	@Autowired
+	private ProductCustomRepository customRepository;
 	
 	@Transactional
 	public void addProductForEach(ProductVo vo) {
@@ -156,7 +161,7 @@ public class ProductService {
 	 * @return
 	 */
 	public List<ProductDto> getAllProductData() {
-		return null;
+		return customRepository.findAllProduct();
 	}
 	
 	/**
@@ -164,7 +169,11 @@ public class ProductService {
 	 * @return
 	 */
 	public List<ProductDto> getProductByCondition(ProductQueryParam queryParam) {
-		return null;
+		BigDecimal min = queryParam.getMinPrice();
+		BigDecimal total = new BigDecimal("10000");
+		total = total.add(min);
+		
+		return customRepository.findByCondition(queryParam);
 	}
 	
 }
