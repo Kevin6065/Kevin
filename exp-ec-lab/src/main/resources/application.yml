@@ -5,7 +5,7 @@ spring:
     url: jdbc:oracle:thin:@//localhost:1521/xe
     #url: jdbc:oracle:thin:@//localhost:1521/ORCLPDB1
     username: EC
-    password: root
+    password: 1234
     driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     show-sql: true
@@ -19,3 +19,6 @@ logging:
     com.course: trace
   file:
     path: C:\Users\student\log
+mybatis:
+  configuration:
+    map-underscore-to-camel-case:ture
