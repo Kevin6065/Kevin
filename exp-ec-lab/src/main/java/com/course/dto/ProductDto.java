@@ -1,6 +1,8 @@
 package com.course.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 //@SqlResultSetMapping(
 //	    name = "ProductDtoMapping",
@@ -17,8 +19,10 @@ import java.math.BigDecimal;
 //	    )
 //	)
 //@Entity
-public class ProductDto {
-
+public class ProductDto implements Serializable {
+	
+	private static final long serialVersionUID = 1L ;
+	
 //	@Id
 	private Long id;
 	
@@ -35,7 +39,9 @@ public class ProductDto {
 	private String cname;
 	
 	private Long productId;
-
+	
+	private List<String> memos;
+	
 	public ProductDto() {
 
 	}
@@ -137,4 +143,14 @@ public class ProductDto {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
+	
+	
+	public List<String> getMemos() {
+		return memos;
+	}
+
+	public void setMemos(List<String> memos) {
+		this.memos = memos;
+	}
+
 }

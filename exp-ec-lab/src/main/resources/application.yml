@@ -21,4 +21,6 @@ logging:
     path: C:\Users\student\log
 mybatis:
   configuration:
-    map-underscore-to-camel-case:ture
+    map-underscore-to-camel-case: true
+    mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.course.dto 
