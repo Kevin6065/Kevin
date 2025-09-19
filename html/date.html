@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/submit" method="post">
+  <label for="date">選擇日期：</label>
+  <input type="date" id="date" name="date" />
+  <br />
+  <button type="submit">提交</button>
+</form>
+<script>
+    const form = document.querySelector("form");
+    const date = document.getElementById("date");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      //日期格式化
+      console.log(date.value);
+      console.log(new Date(date.value));
+      console.log(new Date(date.value).toISOString().split("T")[0]);
+      console.log(new Date(date.value).toLocaleDateString());
+      console.log(new Date(date.value).toLocaleString());
+      setTimeout(function () {
+            console.log('延遲 1 秒')
+      }, 1000)
+      const si = setInterval(function () {
+      console.log('重複執行:' + '現在時間 ' + new Date().toLocaleString())
+        }, 1000)
+      clearInterval(si)
+
+    });
+  </script>
+</body>
+</html>

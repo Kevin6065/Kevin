@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/submit" method="post">
+  <label for="range">選擇範圍：</label>
+  <input type="range" id="range" name="range" min="0" max="100" />
+  <span></span>
+  <br />
+  <button type="submit">送出</button>
+</form>
+<script>
+    const form = document.querySelector("form");
+    const range = document.getElementById("range");
+    const span = document.querySelector("span");
+    // 初始化 span 顯示目前滑桿的值
+    span.textContent = range.value;
+    range.addEventListener("input", () => {
+      span.textContent = range.value;
+    });
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      console.log(range.value);
+    });
+  </script>
+</body>
+</html>

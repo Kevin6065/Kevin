@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <form action="/submit" method="post">
+  <label for="message">留言：</label>
+  <textarea id="message" name="message" rows="4" cols="50"></textarea>
+  <br />
+  <button type="submit">提交</button>
+  <button type="reset">重置</button>
+
+</form>
+
+    <script>
+     const form = document.querySelector("form");
+    const message = document.querySelector("#message");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      console.log(message.value);
+    });
+    form.addEventListener("reset", (e) => {
+      e.preventDefault();
+      message.value = "";
+    });
+  </script>
+
+</body>
+</html>

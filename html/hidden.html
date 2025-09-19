@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/submit" method="post">
+  <input type="hidden" name="userId" value="12345" />
+  <label for="feedback">您的意見：</label>
+  <textarea id="feedback" name="feedback"></textarea>
+  <br />
+  <button type="submit">提交</button>
+</form>
+<script>
+    const form = document.querySelector("form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = {
+        userId: form.userId.value,
+        feedback: form.feedback.value,
+      };
+      console.log(JSON.stringify(formData));
+    });
+  </script>
+</body>
+</html>

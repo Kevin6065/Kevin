@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/submit" method="post">
+  <label for="gender">性別：</label>
+  <select id="gender" name="gender">
+    <option value="male">男</option>
+    <option value="female">女</option>
+    <option value="other">其他</option>
+  </select>
+  <br />
+  <button type="submit">提交</button>
+</form>
+    <script>
+    const form = document.querySelector("form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const gender = form.gender.value;
+      console.log(gender);
+    });
+  </script>
+</body>
+
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Hello World!<br />     
+</body>
+
+    <form action="/submit" method="post">
+  <label for="name">姓名：</label>
+  <input type="text" id="name" name="name" />
+  <br />
+  <label for="email">電子郵件：</label>
+  <input type="email" id="email" name="email" />
+  <br />
+  <button type="submit">提交</button>
+<script>
+    const form = document.querySelector("form");
+    console.log("🚀 ~ form:", form);    
+    form.addEventListener("submit", (event) => {
+      event.preventDefault(); // 阻止表單提交
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+      };
+      console.log(JSON.stringify(data));
+    });
+  </script>
+</form>
+</html>

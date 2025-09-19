@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="title">原始標題</h1>
+    <img id="logo" src ="./kkk.jpeg" alert="稍等一下" style="width : 600px;" >
+    <button id="btn">
+        點我
+    </button>
+
+    <span> 文字區塊</span>
+    <script>
+   
+
+        const title = document.getElementById("title");
+
+        title.textContent = "新標題";
+        title.innerHTML = 
+        "<span style='font-weight: bold;'>這段文字是粗體</span>";
+
+        const logo = document.getElementById("logo");
+        //logo.src = "kkk.jpg";
+
+        logo.setAtrribute("src","./kkk.jpeg");
+        logo.style.width = "800px";
+
+        const btn = document.getElementById("btn");
+        btn.addEventListener("click", () => {
+        alert("點到我了");
+         });
+
+        let newSpan = document.createElement("span");
+        newSpan.textContent = "文字區塊";
+        btn.appendChild(newSpan);
+        
+        
+        
+        
+
+    </script>
+</body>
+</html>

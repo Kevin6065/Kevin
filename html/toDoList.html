@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代辦事項</title>
+     <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    ul {
+      padding-left: 0;
+    }
+    li {
+      list-style: none;
+      margin: 5px 0;
+    }
+    button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+    <h1>我的代辦事項</h1>
+    <input id="todoInput" placeholder="輸入待辦事項">
+    <button id="addBtn">加入</button>
+    <ul id="todoList"></ul>
+
+    <script>    
+        const todoInput = document.getElementById("todoinput");
+        const addBtn = document.getElementById("addBtn");
+        const todoList = document.getElementById("todolist");
+
+        addBtn.addEventListener("click", function () {
+      const text = input.value.trim();
+      if (text === "") return;
+
+      // 建立新項目
+      const li = document.createElement("li");
+      li.textContent = text;
+
+      // 建立刪除按鈕
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "刪除";
+      
+      delBtn.addEventListener("click",  () {
+        li.remove(); // 移除這個 <li>
+      });
+
+      li.appendChild(delBtn); // 把刪除按鈕放進 <li>
+      list.appendChild(li);   // 把整個 <li> 加到清單裡
+
+      input.value = ""; // 清空輸入框
+    });
+
+    
+    </script>
+
+
+</body>
+</html>
