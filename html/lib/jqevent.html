@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: Arial, sans-serif; /* 使用 Arial 字體 */
+        padding: 20px; /* 內邊距 */
+      }
+
+      label {
+        margin-right: 10px; /* 標籤與輸入框之間的間距 */
+      }
+
+      .form-group {
+        margin-bottom: 15px; /* 每個表單組之間的間距 */
+      }
+
+      button {
+        padding: 6px 12px; /* 按鈕內邊距 */
+        background-color: #007bff; /* 藍色背景 */
+        color: white; /* 白色文字 */
+        border: none; /* 無邊框 */
+        border-radius: 4px; /* 圓角 */
+        cursor: pointer; /* 鼠標指針變為手形 */
+      }
+
+      button:hover {
+        background-color: #0056b3; /* 懸停時變深藍色 */
+      }
+
+      .result {
+        margin-top: 10px; /* 結果區域上方間距 */
+        font-weight: bold; /* 結果文字加粗 */
+      }
+    </style>
+    <div class="form-group">
+      <label for="username">使用者名稱：</label>
+      <input type="text" id="username" placeholder="請輸入你的名字" />
+      <button id="showUsername">顯示名字</button>
+    </div>
+
+    <div class="form-group">
+      <label><input type="radio" name="gender" value="male" /> 男性</label>
+      <label><input type="radio" name="gender" value="female" /> 女性</label>
+    </div>
+
+    <div class="form-group">
+      <label for="country">國家：</label>
+      <select name="country" id="country">
+        <option value="us">美國</option>
+        <option value="ca">加拿大</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label><input type="checkbox" name="fruits" value="apple" /> 蘋果</label>
+      <label><input type="checkbox" name="fruits" value="banana" /> 香蕉</label>
+      <label><input type="checkbox" name="fruits" value="orange" /> 橘子</label>
+    </div>
+
+    <button id="getCheckedFruits">獲取選中的水果</button>
+
+    <div class="result" id="output"></div>
+
+    <script>
+      $(document).ready(() => {
+        $("#showUsername").click(() => {
+          const username = $("#username").val().trim();
+          if (username) {
+            $("output").html(`Hello ${username}`);
+          } else {
+            const placeholder = $("#username").attr("placeholder");
+            $("#output").html(plcaeholder);
+          }
+        });
+
+        $('input[name="gender"]').change(() => {
+          const checked = $('input[name="gender"]:checked').val();
+          if (checked) {
+            $("#output").html(`選取的性別 : ${checked}`);
+          }
+        });
+
+        $('input[name="fruits"]').change(() => {
+          const ckfruits = [];
+          $('input[name="fruits"]:checked').each((index, element) => {
+            ckfruits.push($(element).val());
+            $("#output").html(`勾選的水果項目 : ${ckfruits}`);
+          });
+        });
+
+        // 取得name="fruits" 點擊的值
+        $("#getCheckedFruits").click(() => {
+          const fruits = [];
+          $("input[name=fruits]:checked").each((index, fruit) => {
+            fruits.push($(fruit).val());
+          });
+
+          $("#output").html(
+            "你選擇的水果：" + (fruits.length ? fruits.join(", ") : "沒有選擇")
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
