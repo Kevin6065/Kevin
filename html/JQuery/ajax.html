@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../lib/jquery-3.7.1.min.js"></script>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif; /* 使用現代字體 */
+        background-color: #f5f5f5; /* 淺灰色背景 */
+        padding: 20px; /* 內邊距 */
+      }
+
+      .controls {
+        margin-bottom: 20px; /* 控制區域的下邊距 */
+      }
+
+      select,
+      #loadBtn {
+        padding: 8px 12px; /* 按鈕和選單的內邊距 */
+        margin-right: 10px; /* 選單和按鈕之間的間距 */
+        font-size: 14px; /* 字體大小 */
+        border-radius: 5px; /* 圓角 */
+        border: 1px solid #ccc; /* 邊框樣式 */
+      }
+
+      #loadBtn {
+        background-color: #3498db; /* 藍色背景 */
+        color: white; /* 白色文字 */
+        border: none; /* 無邊框 */
+        cursor: pointer; /* 鼠標指針變為手形 */
+      }
+
+      #productList {
+        display: grid; /* 使用 Grid 佈局 */
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(280px, 1fr)
+        ); /* 自動填滿一行 */
+        gap: 20px; /* 商品卡片之間的間距 */
+      }
+
+      .product-card {
+        background-color: white; /* 白色背景 */
+        border-radius: 10px; /* 圓角 */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 輕微陰影效果 */
+        overflow: hidden; /* 隱藏溢出內容 */
+        display: flex; /* 使用 Flexbox 來排列圖片和資訊 */
+        flex-direction: column; /* 垂直排列 */
+        transition: transform 0.2s; /* 平滑過渡效果 */
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px); /* 滑鼠懸停時向上移動 */
+      }
+      /* 商品圖片樣式 */
+      .product-card img {
+        width: 100%; /* 圖片寬度 */
+        height: 220px; /* 固定高度 */
+        object-fit: contain; /* 圖片自適應 */
+        background-color: #fafafa; /* 淺灰色背景 */
+      }
+      /* 商品資訊區域樣式 */
+      .product-info {
+        padding: 15px; /* 內邊距 */
+      }
+      /* 商品標題樣式 */
+      .product-info h3 {
+        font-size: 18px; /* 商品標題字體大小 */
+        margin-bottom: 10px; /* 下邊距 */
+      }
+      /* 商品資訊段落樣式 */
+      .product-info p {
+        margin: 5px 0; /* 段落上下邊距 */
+        color: #555; /* 深灰色文字 */
+      }
+      /* 商品價格樣式 */
+      .rating {
+        margin-top: 8px; /* 上邊距 */
+        color: #f39c12; /* 星級評分顏色 */
+      }
+
+      .category {
+        font-size: 12px; /* 分類字體大小 */
+        color: #999; /* 分類文字顏色 */
+        margin-bottom: 10px; /* 下邊距 */
+      }
+
+      .description {
+        font-size: 13px; /* 商品描述字體大小 */
+        color: #666; /* 商品描述文字顏色 */
+        max-height: 60px; /* 最大高度 */
+        overflow: hidden; /* 超出部分隱藏 */
+      }
+    </style>
+    <title>AJAX 範例</title>
+  </head>
+  <body>
+    <div class="controls">
+      <select id="categorySelect">
+        <option value="">全部分類</option>
+        <option value="men's clothing">男裝</option>
+        <option value="women's clothing">女裝</option>
+        <option value="jewelery">飾品</option>
+        <option value="electronics">電子產品</option>
+      </select>
+
+      <select id="sortPrice">
+        <option value="">價格排序</option>
+        <option value="asc">價格由低到高</option>
+        <option value="desc">價格由高到低</option>
+      </select>
+
+      <button id="loadBtn">載入商品</button>
+    </div>
+
+    <div id="productList"></div>
+
+    <script>
+      $(function () {
+        $("#loadBtn").click(function () {
+          $.ajax({
+            url: "https://fakestoreapi.com/products",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+              // 取得選擇的分類和價格排序
+              const selectedCategory = $("#categorySelect").val();
+              // 取得價格排序選項
+              const sortOrder = $("#sortPrice").val();
+
+              // 篩選分類
+              if (selectedCategory) {
+                data = data.filter(
+                  (item) => item.category === selectedCategory
+                );
+              }
+
+              // 價格排序
+              if (sortOrder === "asc") {
+                data.sort((a, b) => a.price - b.price);
+              } else if (sortOrder === "desc") {
+                data.sort((a, b) => b.price - a.price);
+              }
+
+              // 清空現有的商品列表
+              $("#productList").empty();
+
+              data.forEach(function (item) {
+                // 生成星級評分
+                const stars =
+                  "★".repeat(Math.round(item.rating.rate)) +
+                  "☆".repeat(5 - Math.round(item.rating.rate));
+
+                // 生成商品卡片 HTML
+                const card = `
+              <div class="product-card">
+                <img src="${item.image}" alt="${item.title}" />
+                <div class="product-info">
+                  <h3>${item.title}</h3>
+                  <div class="category">分類：${item.category}</div>
+                  <p class="description">${item.description}</p>
+                  <p>價格：<strong>$${item.price}</strong></p>
+                  <div class="rating">評分：${stars} (${item.rating.count} 人)</div>
+                </div>
+              </div>`;
+                $("#productList").append(card);
+              });
+            },
+            error: function () {
+              $("#productList").html(
+                "<p style='color:red;'>資料載入失敗。</p>"
+              );
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

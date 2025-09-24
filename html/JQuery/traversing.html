@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html lang="zh-Hant">
+      <head>
+        <meta charset="UTF-8" />
+        <title>商品清單操作範例</title>
+        <script src="../lib/jquery-3.7.1.min.js"></script>
+        <style>
+          /* 整體樣式 */
+          body {
+            font-family: sans-serif; /*定字體為無襯線字體*/
+            padding: 20px; /* 設定整體內邊距為 20px */
+          }
+          /* 商品列表樣式 */
+          #productList li {
+            padding: 6px; /* 設定每個商品項目的內邊距 */
+            border-bottom: 1px solid #ddd; /* 添加下邊框 */
+          }
+          /* 高亮顯示第二個商品 */
+          .highlight-green {
+            background-color: #dff0d8; /* 綠色背景 */
+          }
+          /* 高亮顯示第一個和最後一個商品 */
+          .highlight-blue {
+            background-color: #d9edf7; /* 藍色背景 */
+          }
+          /* 價格高亮顯示 */
+          .price-high {
+            color: red; /* 顯示為紅色 */
+          }
+        </style>
+      </head>
+      <body>
+        <h3>商品列表</h3>
+        <ul id="productList">
+          <li class="product" data-price="800">
+            <span class="name">無線滑鼠</span>
+          </li>
+          <li class="product" data-price="1500">
+            <span class="name">機械鍵盤</span>
+          </li>
+          <li class="product" data-price="2200">
+            <span class="name">顯示器</span>
+          </li>
+          <li class="product" data-price="500">
+            <span class="name">滑鼠墊</span>
+          </li>
+        </ul>
+
+        <div style="margin-top: 16px">
+          <button id="joinNumberBtn">加入編號</button>
+          <button id="listNamesBtn">列出商品名稱</button>
+          <button id="showSecondBtn">顯示第二個商品</button>
+          <button id="highlightBtn">高亮第一 / 最後項</button>
+          <button id="filterBtn">篩選價格 > 1000</button>
+
+          <button id="resetBtn">還原設定</button>
+        </div>
+
+        <script>
+          console.log(
+            `🚀 ~  $("#productList .product"):`,
+            $("#productList .product")
+          );
+          $("#joinNumberBtn").click(() => {
+            $("#productList .product").each((index, element) => {
+              const name = $(element).find($(".name"));
+              console.log("🚀 ~ name:", name);
+              const original = name.text();
+              name.text(`${index + 1}.${original}`);
+            });
+          });
+
+          $("#listNamesBtn").click(() => {
+            console.log("~~");
+            const name = $("#productList .product")
+              .map((index, element) => {
+                return $(element).find($(".name")).text();
+              })
+              .get();
+            alert(name);
+          });
+
+          $("#showSecondBtn").on("click", () => {
+            const secondtext = $("#productList .product")
+              .eq(1)
+              .find($(".name"))
+              .text();
+            alert("第二個商品是:" + secondtext); //alert是彈跳視窗
+          });
+
+          $("#highlightBtn").click(() => {
+            const productList = $("#productList .product");
+            productList.first().addClass("highlight-green");
+            productList.last().addClass("highlight-blue");
+          });
+
+          $("#filterBtn").click(function () {
+            const productList = $("#productList .product").removeClass(
+              "price-hight"
+            );
+            console.log("🚀 ~ productList:", productList);
+
+            $("#productList .product")
+              .filter(function () {
+                return parseInt($(this).date("price")) > 1000;
+              })
+              .addClass("peice-high");
+          });
+
+          $("#resetBtn").click(() => {
+            const productList = $("#productList .product");
+            productList.each((index, element) => {
+              $(element).attr("class", "product");
+            });
+          });
+        </script>
+      </body>
+    </html>
+  </body>
+</html>

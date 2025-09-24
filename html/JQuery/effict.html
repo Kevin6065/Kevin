@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="../lib/jquery-3.7.1.min.js"></script>
+        <style>
+          body {
+            font-family: sans-serif; /* 設定整體字體為無襯線字體，讓畫面更簡潔 */
+            background: #f5f5f5; /* 設定頁面背景為淡灰色 */
+            height: 100vh; /* 設定 body 高度為視窗高度（100% viewport height） */
+            margin: 0; /* 移除預設外邊距，避免頁面空隙 */
+          }
+
+          #appButton {
+            position: fixed; /* 固定在視窗上（不會隨滾動移動） */
+            top: 20px; /* 離視窗上方 20px */
+            right: 20px; /* 離視窗右側 20px */
+            width: 40px;
+            height: 40px;
+            background-color: #333; /* 深灰背景色 */
+            color: white; /* 白色文字 */
+            border-radius: 50%; /* 圓形按鈕 */
+            text-align: center; /* 文字置中 */
+            line-height: 40px; /* 使文字垂直置中（行高與高度一致） */
+            cursor: pointer; /* 滑鼠移上去變成點擊手勢 */
+            font-size: 20px; /* 圖示大小 */
+            z-index: 1001; /* 層級比選單高，避免被蓋住 */
+          }
+
+          #appMenu {
+            display: none; /* 初始隱藏（需由 JS 控制顯示） */
+            position: fixed; /* 固定在畫面上 */
+            top: 70px; /* 相對於畫面頂端位置 */
+            right: 20px; /* 與按鈕對齊的右側距離 */
+            width: 260px; /* 選單寬度 */
+            background: white; /* 背景為白色卡片風格 */
+            border-radius: 16px; /* 圓角卡片風格 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 陰影效果讓選單浮起來 */
+            padding: 20px; /* 內邊距 */
+            z-index: 1000; /* 層級要比背景高，但低於 appButton */
+          }
+
+          .app-grid {
+            display: grid; /* 使用 CSS Grid 排版 */
+            grid-template-columns: repeat(3, 1fr); /* 三欄等寬排列 */
+            gap: 16px; /* 每個項目之間的間距 */
+          }
+
+          .app-item {
+            text-align: center; /* 圖示與文字置中 */
+            font-size: 12px; /* 文字大小 */
+            color: #333; /* 深灰文字顏色 */
+            cursor: pointer; /* 滑鼠移上變成手指圖示 */
+            transition: transform 0.2s; /* 滑入時縮放動畫效果會順暢 */
+          }
+
+          .app-item img {
+            width: 32px; /* icon 圖示大小 */
+            height: 32px;
+            margin-bottom: 6px; /* 圖示與文字之間的間距 */
+          }
+        </style>
+        <title>JQuery 動畫效果範例</title>
+      </head>
+      <body>
+        <!-- 按鈕 -->
+        <div id="appButton">☰</div>
+
+        <!-- 展開選單 -->
+        <div id="appMenu">
+          <div class="app-grid">
+            <div class="app-item">
+              <img
+                src="https://www.gstatic.com/images/branding/product/1x/gmail_48dp.png"
+              /><br />Gmail
+            </div>
+            <div class="app-item">
+              <img
+                src="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png"
+              /><br />雲端硬碟
+            </div>
+            <div class="app-item">
+              <img
+                src="https://www.gstatic.com/images/branding/product/1x/youtube_48dp.png"
+              /><br />YouTube
+            </div>
+            <div class="app-item">
+              <img
+                src="https://www.gstatic.com/images/branding/product/1x/maps_48dp.png"
+              /><br />地圖
+            </div>
+            <div class="app-item">
+              <img
+                src="https://www.gstatic.com/images/branding/product/1x/photos_48dp.png"
+              /><br />相片
+            </div>
+            <div class="app-item">
+              <img
+                src="https://www.gstatic.com/images/branding/product/1x/calendar_48dp.png"
+              /><br />日曆
+            </div>
+          </div>
+        </div>
+        <script></script>
+      </body>
+    </html>
+    <script>
+      let menuVisible = false;
+
+      $("#appButton").click(function () {
+        if (!menuVisible) {
+          $("#appMenu")
+            .hide() // 確保起始狀態
+            .slideDown(1000) // 滑動展開
+            .fadeIn(1000); // 同時淡入
+          menuVisible = true;
+        } else {
+          $("#appMenu")
+            // .slideUp(500) // 滑動收起
+            .fadeOut(500); // 淡出
+          menuVisible = false;
+        }
+      });
+
+      $(".app-item").click(function () {
+        const $item = $(this);
+        const clicked = $item.data("clicked") || false;
+
+        if (!clicked) {
+          //animate() 將透明度降至 0.4
+          $item.animate({ opacity: 0.4 }, 1000);
+          $item.data("clicked", true);
+        } else {
+          ////animate() 將透明度降至 1
+          $item.animate({ opacity: 1 }, 1000);
+          $item.data("clicked", false);
+        }
+      });
+
+      $(".app-item").click((event) => {
+        const $item = $(event.currentTarget);
+        const clicked = $item.data("clicked") || false;
+
+        if (!clicked) {
+          $item.animate({ opacity: 0.4 }, 1000);
+          $item.data("clicked", true);
+        } else {
+          $item.animate({ opacity: 1 }, 1000);
+          $item.data("clicked", false);
+        }
+      });
+    </script>
+  </body>
+</html>

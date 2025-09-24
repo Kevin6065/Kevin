@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <title>jQuery 切換圖片與樣式</title>
+    <script src="../lib/jquery-3.7.1.min.js"></script>
+    <style>
+      /* 切換按鈕樣式，通常是顯示/隱藏密碼的眼睛圖示 */
+      .toggle-btn {
+        cursor: pointer; /* 滑鼠移到按鈕上變成手指形狀，表示可點擊 */
+        font-size: 1.2em; /* 字體大小放大到正常的1.2倍 */
+        margin-left: 8px; /* 左邊留8像素的空白，避免貼太近輸入框 */
+        user-select: none; /* 禁止使用者選取這個元素內的文字 */
+      }
+
+      /* 輸入框錯誤狀態的樣式 */
+      .error {
+        border: 2px solid red; /* 加上紅色2像素粗細的邊框，強調錯誤 */
+        background-color: #ffe6e6; /* 背景色變成淡粉紅色，提示使用者 */
+      }
+
+      /* 錯誤訊息文字的樣式 */
+      .error-message {
+        color: red; /* 錯誤訊息文字為紅色 */
+        font-size: 0.9em; /* 文字大小設定為正常的90%，比正文稍小 */
+        margin-top: 4px; /* 上方空間4像素，與輸入框分隔 */
+        display: none; /* 預設隱藏錯誤訊息，需用JS控制顯示 */
+      }
+    </style>
+  </head>
+  <body>
+    <h2>登入</h2>
+    <label
+      >密碼：
+      <input type="password" id="password" />
+      <span class="toggle-btn" id="togglePwd">🙈</span>
+    </label>
+    <div id="errorMsg" class="error-message"></div>
+
+    <br /><br />
+    <button id="submitBtn">登入</button>
+    <script>
+      const CorrectPSW = "123456";
+
+      $("#submitBtn").click(() => {
+        const psw = $("#password");
+        const pswval = psw.val().trim();
+        const emsg = $("#errorMsg");
+        if (!pswval) {
+          emsg.text("請輸入密碼");
+          emsg.show();
+        } else if (pswval.length < 6) {
+          psw.addClass("error");
+          emsg.text("密碼至少需 6 個字元");
+          emsg.show();
+        } else if (pswval !== CorrectPSW) {
+          psw.addClass("error");
+          emsg.text("密碼錯誤");
+          emsg.show();
+        } else {
+          psw.removeClass("error");
+          emsg.hide();
+          alert("登入成功");
+        }
+        psw.val("");
+      });
+
+      $("#togglePwd").click(() => {
+        const psw = $("#password");
+        const isHidden = psw.attr("type") === "password";
+        psw.attr("type", isHidden ? "text" : "password");
+        $("#togglePwd").text(isHidden ? "👁️" : "🙈");
+      });
+    </script>
+  </body>
+</html>
