@@ -1,6 +1,8 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import PropComponets from './components/PropComponets.vue'
+const msgT = 'String'
 </script>
 
 <template>
@@ -8,7 +10,17 @@ import TheWelcome from './components/TheWelcome.vue'
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <!-- <HelloWorld :msg="'You did it!'" :age="31" userName="Kevin" defaultUserName="Angela" /> -->
+      <HelloWorld msg="I did it" />
+      <PropComponets
+        :msg="msgT"
+        :msgText="'I am'"
+        :age="'12'"
+        :userName="'Jerry'"
+        :defaultUserName="'John'"
+        :propF="{ msg: 'hello' }"
+        :propG="'success'"
+      />
     </div>
   </header>
 
