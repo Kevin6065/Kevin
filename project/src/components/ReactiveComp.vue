@@ -5,10 +5,13 @@ const ar = reactive([
   { key: 1, value: 'a' },
   { key: 2, value: 'B' },
 ])
+
 const IncreaseNumber = ref(3)
 function add() {
   ar.push({ key: IncreaseNumber.value++, value: 'c' })
 }
+
+
 
 let noReactiveArray = [
   { key: 1, value: 'a' },
