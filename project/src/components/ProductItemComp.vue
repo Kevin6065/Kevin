@@ -2,6 +2,16 @@
 const props = defineProps({
   product: Object,
 })
+
+const emits = defineEmits(['edit', 'delete'])
+
+const editProduct = () => {
+  emits('edit', props.product, props.product?.id)
+}
+
+const removeProduct = () => {
+  emits('delete', props.product.id)
+}
 </script>
 
 <template>
